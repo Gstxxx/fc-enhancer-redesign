@@ -1,0 +1,2494 @@
+/* =========================================================================
+   FC ENHANCER — REDESIGN v3 (Monochrome / Square / Compact)
+   No gradients. Minimal radii. Tight spacing. Pure neutral palette.
+   ========================================================================= */
+
+:root {
+  /* ---------- BASE PALETTE (pure neutrals) ---------- */
+  --fce-bg-0:        #0a0a0a;
+  --fce-bg-1:        #111111;
+  --fce-bg-2:        #161616;
+  --fce-bg-3:        #1d1d1d;
+  --fce-bg-4:        #262626;
+
+  --fce-surface:     rgba(18, 18, 18, 0.88);
+  --fce-surface-2:   rgba(26, 26, 26, 0.78);
+  --fce-surface-3:   rgba(36, 36, 36, 0.6);
+
+  --fce-border:      rgba(255, 255, 255, 0.06);
+  --fce-border-2:    rgba(255, 255, 255, 0.10);
+  --fce-border-3:    rgba(255, 255, 255, 0.16);
+
+  --fce-text:        #fafafa;
+  --fce-text-dim:    #a1a1aa;
+  --fce-text-faint:  #52525b;
+
+  /* ---------- ACCENT (emerald green) ---------- */
+  --fce-accent:        #10b981;
+  --fce-accent-hover:  #34d399;
+  --fce-accent-dim:    #065f46;
+  --fce-accent-soft:   rgba(16, 185, 129, 0.12);
+  --fce-accent-border: rgba(16, 185, 129, 0.32);
+
+  --fce-danger:        #ef4444;
+  --fce-warn:          #f59e0b;
+  --fce-success:       #10b981;
+  --fce-info:          #06b6d4;
+
+  --fce-coin:          #fbbf24;
+  --fce-profit:        #10b981;
+
+  /* ---------- RADII ---------- */
+  --fce-radius:        8px;
+  --fce-radius-sm:     6px;
+  --fce-radius-lg:     12px;
+  --fce-radius-pill:   999px;
+
+  /* ---------- SHADOWS (flat, no glow) ---------- */
+  --fce-shadow-sm:     0 1px 0 rgba(0,0,0,0.4);
+  --fce-shadow:        0 2px 0 rgba(0,0,0,0.4);
+  --fce-shadow-lg:     0 4px 16px rgba(0,0,0,0.5);
+
+  --fce-font:          'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+                       'Segoe UI', Roboto, system-ui, sans-serif;
+  --fce-mono:          'JetBrains Mono', 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+
+  --fce-easing:        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================================
+   GLOBAL CONTAINER
+   ========================================================================= */
+.ut-navigation-container-view {
+  background: var(--fce-bg-0) !important;
+  color: var(--fce-text) !important;
+  font-family: var(--fce-font) !important;
+  min-height: 100vh !important;
+  position: relative;
+}
+
+.ut-navigation-container-view * {
+  font-family: var(--fce-font) !important;
+  box-sizing: border-box;
+}
+
+.ut-navigation-container-view ::selection {
+  background: rgba(250, 250, 250, 0.18);
+  color: var(--fce-text);
+}
+
+/* =========================================================================
+   TOP NAVIGATION BAR
+   ========================================================================= */
+.ut-navigation-bar-view.navbar-style-landscape.currency-purchase {
+  background: var(--fce-bg-1) !important;
+  border-bottom: 1px solid var(--fce-border) !important;
+  height: 48px !important;
+  padding: 0 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  z-index: 100;
+  position: relative;
+}
+
+/* Hide FC Enhancer / Discord logo + donation/version panels */
+.ut-navigation-bar-view .app-logo,
+.ut-navigation-bar-view a[href*="discord.com"],
+.ut-navigation-bar-view .app-logo-img,
+.ut-navigation-bar-view .donation-panel,
+.ut-navigation-bar-view [data-fce-logo="true"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide .view-navbar-clubinfo wrappers around Manage Sub / Sign out */
+.ut-navigation-bar-view .view-navbar-clubinfo:has(> .section-header-btn),
+.ut-navigation-bar-view .view-navbar-clubinfo:has(> .btn-sign),
+.ut-navigation-bar-view .view-navbar-clubinfo:has(> .call-to-action) {
+  display: none !important;
+}
+
+/* Hide keyboard-hint pseudo labels on navbar controls */
+.ut-navigation-bar-view .ut-navigation-button-control::after,
+.ut-navigation-bar-view .settings-btn::after,
+.ut-navigation-bar-view button.btn-standard::after {
+  content: "" !important;
+  font-size: 0 !important;
+  display: none !important;
+}
+
+/* Back button */
+.ut-navigation-bar-view .settings-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: var(--fce-radius) !important;
+  background: transparent !important;
+  border: 1px solid var(--fce-border) !important;
+  position: relative;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+  flex-shrink: 0;
+}
+.ut-navigation-bar-view .settings-btn:hover {
+  background: var(--fce-bg-3) !important;
+  border-color: var(--fce-border-2) !important;
+}
+.ut-navigation-bar-view .settings-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--fce-text-dim);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='19' y1='12' x2='5' y2='12'/><polyline points='12 19 5 12 12 5'/></svg>") center/16px no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='19' y1='12' x2='5' y2='12'/><polyline points='12 19 5 12 12 5'/></svg>") center/16px no-repeat;
+  transition: background .15s ease;
+}
+.ut-navigation-bar-view .settings-btn:hover::before { background: var(--fce-text); }
+
+/* Page title */
+.ut-navigation-bar-view .title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  color: var(--fce-text) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 0 6px !important;
+  flex-shrink: 0;
+  text-transform: uppercase !important;
+  white-space: nowrap;
+}
+.ut-navigation-bar-view .title.trader-title {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: var(--fce-text) !important;
+  color: var(--fce-text) !important;
+}
+
+.ut-navigation-bar-view .ab-tour {
+  background: transparent !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 2px 6px !important;
+  font-size: 11px !important;
+  cursor: pointer;
+  -webkit-text-fill-color: initial !important;
+  color: var(--fce-text-dim) !important;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+}
+.ut-navigation-bar-view .ab-tour:hover {
+  border-color: var(--fce-border-2);
+  background: var(--fce-bg-3) !important;
+}
+
+/* Header stat cards */
+.ut-navigation-bar-view .header-web {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex: 1 !important;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.ut-navigation-bar-view .view-navbar-clubinfo {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 4px 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 30px !important;
+  transition: border-color .15s ease;
+}
+.ut-navigation-bar-view .view-navbar-clubinfo:hover {
+  border-color: var(--fce-border-2) !important;
+}
+
+.ut-navigation-bar-view .view-navbar-clubinfo-data {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+.ut-navigation-bar-view .view-navbar-clubinfo-name {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 10px !important;
+  font-size: 10px !important;
+  color: var(--fce-text-faint) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ut-navigation-bar-view .view-navbar-clubinfo-name .ab {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  color: var(--fce-text-faint) !important;
+}
+
+.ut-navigation-bar-view #idAbSearch,
+.ut-navigation-bar-view #idAbCoins,
+.ut-navigation-bar-view #idAbProfit {
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  color: var(--fce-text) !important;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--fce-mono) !important;
+}
+
+.ut-navigation-bar-view .view-navbar-currency-coins.coins #idAbCoins { color: var(--fce-coin) !important; }
+.ut-navigation-bar-view .view-navbar-currency-coins.profit #idAbProfit { color: var(--fce-profit) !important; }
+
+.ut-navigation-bar-view #idAbCountDown {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--fce-mono) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  color: var(--fce-text) !important;
+  letter-spacing: 1px;
+}
+
+/* Timer — forced to stay in flow */
+.timer-container,
+.ut-navigation-bar-view .timer-container,
+body .timer-container,
+body.phone .timer-container,
+body.landscape .timer-container {
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  z-index: auto !important;
+}
+.ut-navigation-bar-view .timer,
+.timer {
+  width: 28px !important;
+  height: 28px !important;
+  position: static !important;
+  filter: none !important;
+}
+.ut-navigation-bar-view .timer-circle {
+  fill: none;
+  stroke: var(--fce-text) !important;
+  stroke-width: 2 !important;
+  stroke-dasharray: 88;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s linear;
+}
+.ut-navigation-bar-view .timer.paused .timer-circle,
+.ut-navigation-bar-view .timer.waiting .timer-circle,
+.ut-navigation-bar-view .timer.running .timer-circle {
+  stroke: var(--fce-text) !important;
+}
+.ut-navigation-bar-view .timer-text {
+  fill: var(--fce-text) !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  font-family: var(--fce-mono) !important;
+}
+
+/* Hide orphan timers floating in body */
+body > .timer-container,
+body > .timer,
+.ut-root-view > .timer-container,
+.ut-root-view > .timer {
+  display: none !important;
+}
+
+/* Header toggles (Grid Mode / Wide Mode) */
+.ut-navigation-bar-view > div[style*="border-right"] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 4px 8px !important;
+  margin-right: 0 !important;
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-right: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  height: 30px;
+}
+.ut-navigation-bar-view > div[style*="border-right"] label {
+  font-size: 10px !important;
+  color: var(--fce-text-dim) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Club info (user profile) */
+.ut-navigation-bar-view .view-navbar-clubinfo:last-of-type {
+  flex-direction: row !important;
+  margin-left: auto;
+}
+.ut-navigation-bar-view .view-navbar-clubinfo-est {
+  font-size: 9px !important;
+  color: var(--fce-text-faint) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 700;
+}
+.ut-navigation-bar-view .view-navbar-clubinfo-badge {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: var(--fce-radius-sm) !important;
+  background: var(--fce-bg-3) !important;
+  padding: 2px !important;
+  border: 1px solid var(--fce-border);
+}
+
+/* =========================================================================
+   ACCOUNT MENU — ⋯ dropdown
+   ========================================================================= */
+.fce-account-menu {
+  position: relative;
+  margin-left: 4px;
+  flex-shrink: 0;
+  order: 99;
+}
+
+.fce-account-menu-btn {
+  width: 30px !important;
+  height: 30px !important;
+  background: transparent !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  color: var(--fce-text-dim) !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  display: grid !important;
+  place-items: center;
+  padding: 0 !important;
+  letter-spacing: 1px;
+  line-height: 0 !important;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  font-family: var(--fce-font) !important;
+}
+.fce-account-menu-btn:hover {
+  background: var(--fce-bg-3) !important;
+  border-color: var(--fce-border-2) !important;
+  color: var(--fce-text) !important;
+}
+.fce-account-menu-btn.open {
+  background: var(--fce-bg-3) !important;
+  border-color: var(--fce-border-3) !important;
+  color: var(--fce-text) !important;
+}
+
+.fce-account-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: var(--fce-bg-2);
+  border: 1px solid var(--fce-border-2);
+  border-radius: var(--fce-radius);
+  min-width: 200px;
+  padding: 4px;
+  box-shadow: var(--fce-shadow-lg);
+  display: none;
+  z-index: 9999;
+  font-family: var(--fce-font);
+}
+.fce-account-menu-dropdown.open { display: block; }
+
+.fce-account-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--fce-text);
+  padding: 7px 10px;
+  border-radius: var(--fce-radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .12s ease;
+  font-family: inherit;
+}
+.fce-account-menu-item:hover {
+  background: var(--fce-bg-3);
+}
+.fce-account-menu-item.danger { color: var(--fce-text); }
+.fce-account-menu-item.danger:hover {
+  background: rgba(239, 68, 68, 0.08);
+  color: var(--fce-danger);
+}
+.fce-account-menu-item-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke-width: 1.75;
+}
+.fce-account-menu-divider {
+  height: 1px;
+  background: var(--fce-border);
+  margin: 2px 4px;
+}
+
+/* Hide proxied buttons */
+.ut-navigation-bar-view [data-fce-hidden="true"] {
+  display: none !important;
+}
+
+/* =========================================================================
+   TOGGLE CONTROLS — flat square switch
+   ========================================================================= */
+.ut-toggle-control {
+  position: relative !important;
+  width: 32px !important;
+  height: 18px !important;
+  border-radius: var(--fce-radius-sm) !important;
+  cursor: pointer;
+  background: transparent !important;
+  flex-shrink: 0;
+}
+.ut-toggle-control--track {
+  position: absolute;
+  inset: 0;
+  background: var(--fce-bg-3) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  border: 1px solid var(--fce-border) !important;
+  transition: background .15s ease, border-color .15s ease;
+}
+.ut-toggle-control--grip {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--fce-text-dim) !important;
+  border-radius: 1px !important;
+  box-shadow: none;
+  transition: transform .15s var(--fce-easing), background .15s ease;
+}
+.ut-toggle-control.toggled .ut-toggle-control--track,
+.ut-toggle-control[data-on="true"] .ut-toggle-control--track {
+  background: var(--fce-text) !important;
+  border-color: var(--fce-text) !important;
+}
+.ut-toggle-control.toggled .ut-toggle-control--grip,
+.ut-toggle-control[data-on="true"] .ut-toggle-control--grip {
+  transform: translateX(14px);
+  background: var(--fce-bg-0) !important;
+}
+.ut-toggle-control.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* =========================================================================
+   MAIN CONTENT — two-column grid only on Trader
+   ========================================================================= */
+.ut-navigation-container-view--content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Trader page = the content area contains a `.process-log`. We use a
+   2-column / 2-row grid: filters fill the left column, the stats panel
+   sits in row 1 of the right column, and the log fills row 2. */
+.ut-navigation-container-view--content:has(.process-log) {
+  padding: 14px !important;
+  display: grid !important;
+  grid-template-columns: minmax(380px, 440px) 1fr !important;
+  grid-template-rows: auto 1fr !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+  height: calc(100vh - 48px) !important;
+  overflow: hidden !important;
+}
+.ut-navigation-container-view--content:has(.process-log) > .ut-market-search-filters-view.trader.floating {
+  grid-column: 1 !important;
+  grid-row: 1 / -1 !important;
+}
+.ut-navigation-container-view--content:has(.process-log) > .fce-stats-panel {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+}
+.ut-navigation-container-view--content:has(.process-log) > .process-log {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  min-height: 0 !important;
+}
+
+/* =========================================================================
+   FILTERS PANEL (LEFT) — transparent shell; each section below is its own card.
+   The original FC Enhancer CSS sets `.landscape .trader { width: 55%; float: left }`
+   which collapses the panel to ~225px inside our grid. Override hard.
+   ========================================================================= */
+.ut-market-search-filters-view.trader.floating,
+.landscape .ut-market-search-filters-view.trader.floating,
+.landscape .trader.ut-market-search-filters-view {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  float: none !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  top: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.ut-market-search-filters-view.trader.floating::-webkit-scrollbar { width: 4px; }
+.ut-market-search-filters-view.trader.floating::-webkit-scrollbar-track { background: transparent; }
+.ut-market-search-filters-view.trader.floating::-webkit-scrollbar-thumb {
+  background: var(--fce-border-2);
+  border-radius: 0;
+}
+
+/* Top-level tabs (Players / Managers / Club Items / Consumables) */
+.ut-market-search-filters-view .ea-filter-bar-view {
+  background: var(--fce-bg-2) !important;
+  border-bottom: 1px solid var(--fce-border) !important;
+  padding: 0 !important;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.ut-market-search-filters-view .ea-filter-bar-view .menu-container {
+  display: flex !important;
+  gap: 0 !important;
+  padding: 0 !important;
+}
+
+.ea-filter-bar-item-view {
+  background: transparent !important;
+  border: none !important;
+  color: var(--fce-text-dim) !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  position: relative;
+  transition: color .15s ease, background .15s ease;
+  border-bottom: none !important;
+  margin: 0 !important;
+  letter-spacing: 0.1px;
+  border-radius: var(--fce-radius-sm) !important;
+  text-transform: none !important;
+}
+.ea-filter-bar-item-view:hover {
+  color: var(--fce-text) !important;
+  background: var(--fce-bg-3) !important;
+}
+.ea-filter-bar-item-view.selected {
+  color: #06291f !important;
+  background: var(--fce-accent) !important;
+  font-weight: 700 !important;
+}
+.ea-filter-bar-item-view.selected::after { display: none !important; }
+.ea-filter-bar-item-view.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Top-level tabs row — standalone card */
+.ut-market-search-filters-view > .ea-filter-bar-view,
+.ut-market-search-filters-view .ea-filter-bar-view:not(#futmenuitem) {
+  background: var(--fce-bg-1) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 0 !important;
+  position: relative !important;
+  top: auto !important;
+}
+.ut-market-search-filters-view .ea-filter-bar-view .menu-container {
+  padding: 6px !important;
+  gap: 4px !important;
+  background: transparent !important;
+}
+
+/* The .ut-pinned-list-container holds saved-filter sections; the .ut-content
+   inner wrapper becomes a flex column of cards. */
+.ut-market-search-filters-view .ut-pinned-list-container.ut-content-container {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+.ut-market-search-filters-view .ut-pinned-list-container .ut-content,
+.ut-market-search-filters-view .ut-pinned-list-container .ut-pinned-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.ut-market-search-filters-view .ut-pinned-item { display: none !important; }
+
+.ut-pinned-list-container.ut-content-container {
+  padding: 10px !important;
+}
+.ut-pinned-list-container .ut-content,
+.ut-pinned-list-container .ut-pinned-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+/* Saved Filters */
+.ut-item-search-view.extended-filters {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  margin-bottom: 2px;
+}
+.ut-item-search-view.extended-filters .saved-filters {
+  display: grid !important;
+  grid-template-columns: 1fr auto auto !important;
+  gap: 4px !important;
+  align-items: center !important;
+  padding: 8px !important;
+  background: var(--fce-bg-2) !important;
+  border-radius: var(--fce-radius) !important;
+  border: 1px solid var(--fce-border) !important;
+}
+.ut-item-search-view.extended-filters .saved-filters .ut-drop-down-control {
+  grid-column: 1 / -1;
+}
+
+/* Inputs */
+.ut-text-input-control,
+.ut-number-input-control,
+input[type="text"].ut-text-input-control,
+input[type="tel"].ut-number-input-control {
+  background: var(--fce-bg-2) !important;
+  color: var(--fce-text) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 0 8px !important;
+  font-size: 12px !important;
+  font-family: var(--fce-font) !important;
+  transition: border-color .12s ease, background .12s ease;
+  height: 28px !important;
+  outline: none !important;
+}
+.ut-text-input-control::placeholder,
+.ut-number-input-control::placeholder {
+  color: var(--fce-text-faint) !important;
+}
+.ut-text-input-control:focus,
+.ut-number-input-control:focus {
+  border-color: var(--fce-text) !important;
+  background: var(--fce-bg-3) !important;
+}
+.ut-number-input-control.filled {
+  color: var(--fce-text) !important;
+  font-weight: 600 !important;
+}
+
+/* Buttons */
+.btn-standard {
+  background: var(--fce-bg-2) !important;
+  color: var(--fce-text) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 0 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease, color .12s ease;
+  height: 28px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  position: relative;
+  box-shadow: none !important;
+}
+.btn-standard:hover:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-3) !important;
+  border-color: var(--fce-border-2) !important;
+}
+.btn-standard:active:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-4) !important;
+}
+
+.btn-standard.primary {
+  background: var(--fce-text) !important;
+  color: var(--fce-bg-0) !important;
+  border: 1px solid var(--fce-text) !important;
+}
+.btn-standard.primary:hover:not(.disabled):not([disabled]) {
+  background: var(--fce-text-dim) !important;
+  border-color: var(--fce-text-dim) !important;
+}
+
+.btn-standard.primary.call-to-action {
+  background: var(--fce-text) !important;
+  color: var(--fce-bg-0) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.btn-standard.primary.cancel-btn,
+.btn-standard.cancel-btn {
+  background: transparent !important;
+  color: var(--fce-danger) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+.btn-standard.primary.cancel-btn:hover:not(.disabled):not([disabled]),
+.btn-standard.cancel-btn:hover:not(.disabled):not([disabled]) {
+  background: rgba(239, 68, 68, 0.08) !important;
+  border-color: var(--fce-danger) !important;
+}
+
+.btn-standard.disabled,
+.btn-standard[disabled] {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+.panelActionRow.filter-action-btn,
+.panelActionRow.filters {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+.panelActionRow.filter-action-btn .btn-standard,
+.panelActionRow.filters .btn-standard {
+  flex: 1 1 auto;
+  min-width: 70px;
+}
+
+/* Numeric spinner */
+.ut-numeric-input-spinner-control {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  overflow: hidden !important;
+  height: 28px;
+  transition: border-color .12s ease;
+}
+.ut-numeric-input-spinner-control:focus-within {
+  border-color: var(--fce-text) !important;
+}
+.ut-numeric-input-spinner-control .ut-number-input-control {
+  border: none !important;
+  background: transparent !important;
+  width: 64px !important;
+  text-align: center !important;
+  padding: 0 4px !important;
+  height: 100% !important;
+  font-weight: 600;
+}
+.ut-numeric-input-spinner-control .ut-number-input-control:focus {
+  border: none !important;
+  background: transparent !important;
+}
+.ut-numeric-input-spinner-control .btn-standard {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  width: 26px !important;
+  height: 100% !important;
+  padding: 0 !important;
+  font-size: 13px;
+  color: var(--fce-text-dim) !important;
+  position: relative;
+  transition: background .1s ease;
+}
+.ut-numeric-input-spinner-control .decrement-value::before { content: "−"; font-weight: 700; }
+.ut-numeric-input-spinner-control .increment-value::before { content: "+"; font-weight: 700; }
+.ut-numeric-input-spinner-control .btn-standard:hover:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-3) !important;
+  color: var(--fce-text) !important;
+}
+
+/* Panel action rows */
+.panelActionRow {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 10px !important;
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  font-size: 12px !important;
+  transition: border-color .12s ease;
+}
+.panelActionRow:hover { border-color: var(--fce-border-2) !important; }
+
+.buttonInfoLabel {
+  color: var(--fce-text) !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  flex: 1;
+}
+.spinnerLabel,
+.durationLabel {
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Drop-down */
+.ut-drop-down-control {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  cursor: pointer;
+  transition: border-color .12s ease, background .12s ease;
+  min-height: 28px;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 10px !important;
+  position: relative;
+  font-size: 12px;
+}
+.ut-drop-down-control::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--fce-text-faint);
+  border-bottom: 1.5px solid var(--fce-text-faint);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+.ut-drop-down-control:hover:not(.disabled) {
+  border-color: var(--fce-border-2) !important;
+  background: var(--fce-bg-3) !important;
+}
+.ut-drop-down-control.disabled { opacity: 0.5; pointer-events: none; }
+.ut-drop-down-control .inline-container { width: 100%; }
+.ut-drop-down-control .label {
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+
+/* Search filter rows */
+.inline-list-select.ut-search-filter-control {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 0 !important;
+  transition: border-color .12s ease, background .12s ease;
+  position: relative;
+  /* overflow: visible — must allow the FC Enhancer's chooser popup to
+     escape this row when clicked (Quality/Rarity/Position dropdowns). */
+}
+.inline-list-select.ut-search-filter-control:hover:not(.disabled) {
+  border-color: var(--fce-border-2) !important;
+  background: var(--fce-bg-3) !important;
+}
+.inline-list-select.ut-search-filter-control.disabled { opacity: 0.45; }
+.inline-list-select.ut-search-filter-control.has-selection {
+  border-color: var(--fce-border-3) !important;
+  background: var(--fce-bg-3) !important;
+}
+.inline-list-select.ut-search-filter-control.has-selection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--fce-text);
+}
+
+.ut-search-filter-control--row {
+  display: grid !important;
+  grid-template-columns: 28px 1fr auto !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 10px !important;
+  width: 100%;
+}
+.ut-search-filter-control--row-image {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain !important;
+  border-radius: var(--fce-radius-sm) !important;
+  background: var(--fce-bg-4);
+  padding: 2px;
+  border: 1px solid var(--fce-border);
+}
+.ut-search-filter-control--row .label {
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+.ut-search-filter-control--row-button {
+  background: transparent !important;
+  border: none !important;
+  color: var(--fce-text-dim) !important;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--fce-radius-sm) !important;
+  position: relative;
+  transition: background .12s ease;
+}
+.ut-search-filter-control--row-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translate(-65%, -50%) rotate(-45deg);
+}
+.ut-search-filter-control--row-button:hover {
+  background: var(--fce-bg-4) !important;
+  color: var(--fce-text) !important;
+}
+
+/* Player search */
+.ut-player-search-control--input-container {
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  width: 100%;
+}
+.ut-player-search-control--input-container .ut-text-input-control {
+  width: 100% !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+.ut-player-search-control--input-container .icon_magnifier {
+  position: absolute;
+  left: 9px;
+  z-index: 2;
+  width: 14px;
+  height: 14px;
+  background: var(--fce-text-faint);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 2a8 8 0 015.3 13.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z'/></svg>") center/contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 2a8 8 0 015.3 13.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z'/></svg>") center/contain no-repeat;
+  pointer-events: none;
+}
+.ut-player-search-control--input-container:focus-within .icon_magnifier { background: var(--fce-text); }
+.ut-player-search-control--input-container .exit-btn {
+  position: absolute;
+  right: 6px;
+  background: transparent !important;
+  border: none !important;
+  color: var(--fce-text-dim) !important;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--fce-radius-sm) !important;
+  cursor: pointer;
+  font-size: 0;
+}
+.ut-player-search-control--input-container .exit-btn::before {
+  content: "×";
+  font-size: 14px;
+  line-height: 1;
+}
+.ut-player-search-control--input-container .exit-btn:hover {
+  background: var(--fce-bg-4) !important;
+  color: var(--fce-danger) !important;
+}
+
+/* OVR Range */
+.ut-item-search-view-ovr-range-container {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 10px !important;
+}
+.ovr-range-title {
+  margin: 0 0 2px !important;
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.ovr-range-description {
+  margin: 0 0 10px !important;
+  color: var(--fce-text-faint) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+}
+
+.ut-double-range-control { position: relative; padding: 0 4px; }
+.ut-double-range-control .range-slider {
+  position: relative;
+  height: 3px;
+  background: var(--fce-bg-4);
+  border-radius: var(--fce-radius-sm);
+  margin: 12px 0;
+  overflow: visible;
+}
+.ut-double-range-control .range-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--fce-text);
+  border-radius: var(--fce-radius-sm);
+}
+.ut-double-range-control .range-input { position: relative; height: 0; }
+.ut-double-range-control .range-input input[type="range"] {
+  position: absolute;
+  top: -16px;
+  width: 100%;
+  height: 4px;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  outline: none;
+}
+.ut-double-range-control .range-input input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--fce-radius-sm);
+  background: var(--fce-text);
+  border: 2px solid var(--fce-bg-0);
+  box-shadow: 0 0 0 1px var(--fce-text);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform .12s var(--fce-easing);
+}
+.ut-double-range-control .range-input input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+.ut-double-range-control .range-input input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--fce-radius-sm);
+  background: var(--fce-text);
+  border: 2px solid var(--fce-bg-0);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.ut-double-range-control .text-input-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 10px;
+}
+.ut-double-range-control .text-input-container .titles { display: contents; }
+.ut-double-range-control .text-input-container label {
+  color: var(--fce-text-faint) !important;
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px;
+  margin-bottom: 3px;
+  font-weight: 700;
+  grid-row: 1;
+}
+.ut-double-range-control .text-input-container .inputs { display: contents; }
+.ut-double-range-control .text-input-container .inputs input { grid-row: 2; }
+
+/* Section headers */
+.search-price-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 4px 0 !important;
+}
+.search-price-header h1 {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--fce-text-dim) !important;
+  margin: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+}
+.search-price-header .flat {
+  background: transparent !important;
+  border: none !important;
+  color: var(--fce-text) !important;
+  cursor: pointer;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  padding: 2px 6px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-radius: var(--fce-radius-sm) !important;
+  transition: background .12s ease;
+}
+.search-price-header .flat:hover:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-3) !important;
+}
+.search-price-header .flat.disabled,
+.search-price-header .flat[disabled] {
+  color: var(--fce-text-faint) !important;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Price filter grid */
+.ut-market-search-filters-view--criteria-container {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 6px !important;
+  margin-bottom: 6px !important;
+}
+.price-filter {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  transition: border-color .12s ease;
+}
+.price-filter:hover { border-color: var(--fce-border-2) !important; }
+.price-filter .info .label {
+  font-size: 10px !important;
+  color: var(--fce-text-faint) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  font-weight: 700 !important;
+}
+
+/* Settings sub-tabs */
+#futmenuitem { margin-top: 14px; }
+#futmenuitem .menu-container {
+  background: var(--fce-bg-2);
+  border: 1px solid var(--fce-border);
+  border-radius: var(--fce-radius);
+  padding: 3px;
+  gap: 2px !important;
+  margin-bottom: 10px;
+  display: flex !important;
+  flex-wrap: wrap !important;      /* tabs wrap to multiple rows */
+  overflow: hidden !important;     /* no horizontal scroll */
+}
+#futmenuitem .menu-container::-webkit-scrollbar { display: none !important; }
+#futmenuitem .ea-filter-bar-item-view {
+  padding: 5px 8px !important;
+  font-size: 10px !important;
+  border-radius: var(--fce-radius-sm) !important;
+  border-bottom: none !important;
+  margin: 0 !important;
+  white-space: nowrap;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  flex: 0 1 auto;
+}
+#futmenuitem .ea-filter-bar-item-view.selected {
+  background: var(--fce-text) !important;
+  color: var(--fce-bg-0) !important;
+}
+
+/* Bot Settings (trader-settings-wrapper): ALWAYS one column.
+   Grid auto-fit was making cramped 2-column rows when the parent card was
+   wide enough — labels like "Maximum Buy Price" wrapped to 3 lines. */
+.trader-settings-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+.trader-settings-wrapper .panelActionRow {
+  background: var(--fce-bg-2) !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+.trader-settings-field {
+  font-size: 12px !important;
+  width: 100% !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+}
+.panelActionRow .buttonInfoLabel,
+.panelActionRow .spinnerLabel,
+.panelActionRow .durationLabel,
+.panelActionRow .ut-toggle-cell-view--label {
+  white-space: normal !important;
+  word-break: break-word !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  line-height: 1.25 !important;
+}
+.panelActionRow .ut-numeric-input-spinner-control {
+  flex-shrink: 0;
+}
+
+/* Toggle cells */
+.ut-toggle-cell-view {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+.ut-toggle-cell-view--label {
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Choices.js multiselect */
+.choices {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  min-height: 28px;
+  width: 100% !important;
+  position: relative;
+  margin-bottom: 0 !important;
+}
+.choices.is-focused,
+.choices.is-open {
+  border-color: var(--fce-text) !important;
+}
+.choices__inner {
+  background: transparent !important;
+  border: none !important;
+  padding: 4px 8px !important;
+  min-height: 28px;
+  width: 100% !important;
+}
+.choices__input {
+  background: transparent !important;
+  color: var(--fce-text) !important;
+  border: none !important;
+  outline: none;
+}
+.choices__input::placeholder { color: var(--fce-text-faint) !important; }
+.choices__list--dropdown,
+.choices__list[aria-expanded] {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border-2) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  margin-top: 2px;
+  box-shadow: var(--fce-shadow-lg);
+  z-index: 100;
+}
+.choices__item {
+  color: var(--fce-text) !important;
+  padding: 7px 10px !important;
+  font-size: 12px !important;
+  background: transparent !important;
+  border: none !important;
+}
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+  background: var(--fce-bg-3) !important;
+  color: var(--fce-text) !important;
+}
+.choices__list--multiple .choices__item {
+  background: var(--fce-bg-3) !important;
+  border: 1px solid var(--fce-border-2) !important;
+  color: var(--fce-text) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 2px 8px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  margin-right: 3px !important;
+  margin-bottom: 3px !important;
+}
+
+/* Bottom action buttons */
+.button-container {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 4px !important;
+  margin-top: 12px !important;
+  padding: 10px !important;
+  background: var(--fce-bg-1) !important;
+  border-top: 1px solid var(--fce-border) !important;
+  position: sticky;
+  bottom: 0;
+}
+.button-container .btn-standard { width: 100%; }
+
+/* Collapsible "Enhancer Filters" */
+.fn\:w-full.fn\:mt-3 [data-slot="collapsible"] {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 10px !important;
+  outline: none !important;
+}
+.fn\:w-full.fn\:mt-3 [data-slot="collapsible"] p {
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.fn\:w-full.fn\:mt-3 [data-slot="collapsible-trigger"] {
+  background: transparent;
+  border: none;
+  color: var(--fce-text-dim);
+  cursor: pointer;
+  margin-left: auto;
+  transition: color .12s ease;
+}
+.fn\:w-full.fn\:mt-3 [data-slot="collapsible-trigger"]:hover {
+  color: var(--fce-text);
+}
+
+/* =========================================================================
+   PROCESS LOG (RIGHT)
+   ========================================================================= */
+.process-log {
+  background: var(--fce-bg-1) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  position: relative !important;
+  top: auto !important;
+  min-height: 0 !important;
+}
+
+.process-log-header {
+  background: var(--fce-bg-2) !important;
+  border-bottom: 1px solid var(--fce-border) !important;
+  padding: 10px 14px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-shrink: 0;
+  gap: 8px;
+}
+.process-log-header h3 {
+  color: var(--fce-text) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.process-log-header h3::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--fce-text);
+}
+@keyframes fce-blink {
+  50% { opacity: 0.3; }
+}
+.process-log-header h3[data-state="running"]::before {
+  animation: fce-blink 1.4s ease-in-out infinite;
+}
+.process-log-header h3[data-state="idle"]::before {
+  background: var(--fce-text-faint) !important;
+  animation: none !important;
+}
+
+.process-log-header .button-clear {
+  display: flex !important;
+  gap: 4px !important;
+}
+.process-log-header .button-clear .btn-standard {
+  height: 26px !important;
+  padding: 0 8px !important;
+  margin: 0 !important;
+  font-size: 11px !important;
+}
+.btn-gradient-secondary {
+  background: var(--fce-bg-3) !important;
+  color: var(--fce-text) !important;
+  border: 1px solid var(--fce-border) !important;
+}
+.btn-gradient-secondary:hover:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-4) !important;
+  border-color: var(--fce-border-2) !important;
+}
+
+.process-log-messages {
+  flex: 1 1 0;
+  overflow-y: auto !important;
+  padding: 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  min-height: 0;
+}
+.process-log-messages::-webkit-scrollbar { width: 4px; }
+.process-log-messages::-webkit-scrollbar-thumb {
+  background: var(--fce-border-2);
+  border-radius: 0;
+}
+
+/* Log entry */
+.log-detail {
+  display: grid !important;
+  grid-template-columns: 68px 1fr !important;
+  gap: 8px !important;
+  align-items: center !important;
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-left: 2px solid var(--fce-text-faint) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 6px 10px !important;
+  margin: 0 !important;
+  transition: background .12s ease, border-color .12s ease;
+}
+.log-detail:hover {
+  background: var(--fce-bg-3) !important;
+  border-color: var(--fce-border-2) !important;
+}
+
+.log-level { display: flex; }
+.log-type {
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+  padding: 2px 6px !important;
+  border-radius: var(--fce-radius-sm) !important;
+  text-transform: uppercase !important;
+  display: inline-block;
+  white-space: nowrap;
+  background: var(--fce-bg-3) !important;
+  border: 1px solid var(--fce-border) !important;
+  color: var(--fce-text) !important;
+  width: 56px !important;
+  text-align: center;
+}
+.log-type.INFO {
+  background: rgba(6, 182, 212, 0.15) !important;
+  border-color: rgba(6, 182, 212, 0.30) !important;
+  color: var(--fce-info) !important;
+}
+.log-type.SUCCESS {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: rgba(16, 185, 129, 0.30) !important;
+  color: var(--fce-success) !important;
+}
+.log-type.WARN {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border-color: rgba(245, 158, 11, 0.30) !important;
+  color: var(--fce-warn) !important;
+}
+.log-type.ERROR {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.30) !important;
+  color: var(--fce-danger) !important;
+}
+
+.log-detail:has(.log-type.SUCCESS) { border-left-color: var(--fce-text) !important; }
+.log-detail:has(.log-type.INFO)    { border-left-color: var(--fce-text-dim) !important; }
+.log-detail:has(.log-type.WARN)    { border-left-color: var(--fce-warn) !important; }
+.log-detail:has(.log-type.ERROR)   { border-left-color: var(--fce-danger) !important; }
+
+.log-message {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+.log-message .message {
+  color: var(--fce-text) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  word-break: break-word;
+}
+.log-message .time {
+  color: var(--fce-text-faint) !important;
+  font-size: 10px !important;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--fce-mono) !important;
+  font-weight: 500;
+}
+
+/* Search log block */
+.search-log {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+.search-log-header-wrapper {
+  background: var(--fce-bg-3) !important;
+  padding: 6px 10px !important;
+  font-size: 11px !important;
+  color: var(--fce-text-dim) !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border-bottom: 1px solid var(--fce-border);
+  margin-bottom: 0 !important;
+  flex-wrap: wrap;
+}
+.search-log-time {
+  font-family: var(--fce-mono) !important;
+  background: var(--fce-bg-4) !important;
+  color: var(--fce-text) !important;
+  padding: 2px 6px !important;
+  border-radius: var(--fce-radius-sm) !important;
+  font-size: 10px !important;
+  border: 1px solid var(--fce-border);
+}
+
+.search-log-results-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 4px !important;
+  padding: 6px !important;
+}
+.search-log-result {
+  display: grid !important;
+  grid-template-columns: 28px 1fr auto auto !important;
+  gap: 8px !important;
+  align-items: center !important;
+  background: var(--fce-bg-3) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 5px 8px !important;
+  transition: background .12s ease, border-color .12s ease;
+  width: 100% !important;
+}
+.search-log-result:hover {
+  border-color: var(--fce-border-2) !important;
+  background: var(--fce-bg-4) !important;
+}
+.search-log-field {
+  font-size: 11px !important;
+  color: var(--fce-text-dim) !important;
+  width: auto !important;
+  text-align: left !important;
+}
+.search-log-field:first-child {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--fce-text) !important;
+  text-align: center !important;
+  background: var(--fce-bg-4);
+  border-radius: var(--fce-radius-sm);
+  padding: 2px 0 !important;
+  width: 26px !important;
+  border: 1px solid var(--fce-border);
+}
+.search-log-expand-field {
+  color: var(--fce-text) !important;
+  font-weight: 500 !important;
+}
+.search-log-field.currency-coins {
+  color: var(--fce-coin) !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--fce-mono) !important;
+}
+.search-log-field.currency-coins::before { content: none; }
+
+/* =========================================================================
+   SIDE NAV (vertical landscape sidebar)
+   ========================================================================= */
+.ut-tab-bar-view.game-navigation { background: transparent !important; }
+
+.landscape .ut-tab-bar-view.game-navigation .ut-tab-bar,
+.with-fifa-header .ut-tab-bar-view.game-navigation .ut-tab-bar {
+  background: var(--fce-bg-1) !important;
+  border-right: 1px solid var(--fce-border) !important;
+  border-top: none !important;
+  padding: 4px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 1px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.phone .ut-tab-bar-view.game-navigation .ut-tab-bar {
+  background: var(--fce-bg-1) !important;
+  border-top: 1px solid var(--fce-border) !important;
+  padding: 4px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.ut-tab-bar-item {
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--fce-radius-sm) !important;
+  color: var(--fce-text-faint) !important;
+  padding: 8px 4px !important;
+  cursor: pointer;
+  transition: color .12s ease, background .12s ease;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  flex-shrink: 0;
+}
+.ut-tab-bar-item:hover {
+  color: var(--fce-text-dim) !important;
+  background: var(--fce-bg-3) !important;
+}
+.ut-tab-bar-item.selected {
+  color: var(--fce-text) !important;
+  background: var(--fce-bg-3) !important;
+  box-shadow: inset 2px 0 0 0 var(--fce-text) !important;
+}
+.phone .ut-tab-bar-item.selected {
+  box-shadow: inset 0 2px 0 0 var(--fce-text) !important;
+}
+.ut-tab-bar-item::before {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+.ut-tab-bar-item span {
+  display: block;
+  font-size: 9px !important;
+  line-height: 1.1;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+.ut-tab-bar-item img {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* =========================================================================
+   HIDE KEYBOARD HINT LABELS
+   ========================================================================= */
+.ut-market-search-filters-view button::after,
+.ut-market-search-filters-view .ut-toggle-cell-view::after,
+.ut-market-search-filters-view .ut-toggle-control::after,
+.ut-market-search-filters-view button .btn-text::after,
+.ut-market-search-filters-view .search-price-header > button::after,
+.ut-market-search-filters-view .search-price-header > button::before,
+.ut-market-search-filters-view .price-filter button::after,
+.button-container button::after,
+.button-container button .btn-text::after,
+.ut-tab-bar button::after,
+.ut-tab-bar-item::after,
+.process-log-header button::after,
+.process-log-header button .btn-text::after,
+.fce-account-menu-item::after,
+.fce-account-menu-btn::after,
+.bidButton::after,
+.buyButton::before,
+.send-to-transfer-list .btn-text::after,
+.send-to-club .btn-text::after,
+.quick-sell .btn-text::after,
+.compare-price .btn-text::after,
+.redeem-item .btn-text::after,
+.redeem-item-hideout .btn-text::after,
+.send-to-storage .btn-text::after,
+.key-quick-sell::after,
+.key-send-club::after,
+.key-send-tl::after,
+.key-send-sbcStorage::after,
+.key-send-all-club::after,
+.key-send-all-sbcStorage::after,
+.key-redeem::after,
+.key-confirm-btn::after,
+.key-continue-btn::after,
+.key-claim-btn::after,
+.panel-list-external::after,
+.panel-list-current-bin::after,
+.ut-image-button-control.ellipsis-btn::before,
+.ut-image-button-control.custom-bulk-btn::after,
+.generate-btn::before,
+.select-solution-btn::after,
+.send-to-storage::after,
+.watch::after,
+.send-to-transfer-list::after,
+.send-to-club::after,
+.quick-sell::after,
+.compare-price::after,
+.redeem-item::after,
+.redeem-item-hideout::after {
+  content: "" !important;
+  display: none !important;
+  font-size: 0 !important;
+}
+
+/* Re-allow spinner button pseudo-elements */
+.ut-numeric-input-spinner-control .decrement-value::before {
+  content: "−" !important;
+  display: inline-block !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+.ut-numeric-input-spinner-control .increment-value::before {
+  content: "+" !important;
+  display: inline-block !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+/* Hide any lingering float-toggle buttons from older versions of the extension */
+.fce-float-toggle,
+.fce-floating-trader { display: none !important; }
+
+/* =========================================================================
+   TRADER STATS PANEL — sparkline cards for purchases / coins / profit
+   ========================================================================= */
+.fce-stats-panel {
+  background: var(--fce-bg-1);
+  border: 1px solid var(--fce-border);
+  border-radius: var(--fce-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.fce-stats-header {
+  background: var(--fce-bg-2);
+  border-bottom: 1px solid var(--fce-border);
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 32px;
+  flex-shrink: 0;
+}
+.fce-stats-header h3 {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--fce-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fce-stats-header h3::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--fce-text);
+}
+.fce-stats-range {
+  font-size: 10px;
+  color: var(--fce-text-faint);
+  font-family: var(--fce-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.fce-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--fce-border);
+}
+.fce-stat-card {
+  background: var(--fce-bg-1);
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 76px;
+}
+.fce-stat-card:hover {
+  background: var(--fce-bg-2);
+}
+.fce-stat-label {
+  font-size: 10px;
+  color: var(--fce-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+}
+.fce-stat-value {
+  font-size: 18px;
+  color: var(--fce-text);
+  font-family: var(--fce-mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.fce-stat-card.fce-stat-negative .fce-stat-value {
+  color: var(--fce-danger);
+}
+.fce-stat-chart {
+  width: 100%;
+  height: 26px;
+  margin-top: auto;
+  display: block;
+}
+.fce-stat-chart-empty {
+  font-size: 10px;
+  color: var(--fce-text-faint);
+  margin-top: auto;
+  font-family: var(--fce-mono);
+}
+
+@media (max-width: 1200px) {
+  .fce-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .fce-stats-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================================
+   SECTION CARDS — each `.fce-card` wraps a header + its body block.
+   Wrapping is done in JS so the outer flex `gap` lands BETWEEN cards
+   (between sibling `.fce-card`s), not between a header and its body.
+   ========================================================================= */
+.fce-card {
+  background: var(--fce-bg-1);
+  border: 1px solid var(--fce-border);
+  border-radius: var(--fce-radius);
+  overflow: visible;     /* DO NOT hide overflow — dropdowns must escape */
+  display: flex;
+  flex-direction: column;
+}
+
+.fce-section-header {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--fce-border);
+  border-radius: 0;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex-shrink: 0;
+}
+.fce-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fce-text);
+  letter-spacing: 0.1px;
+}
+.fce-section-title svg {
+  width: 16px;
+  height: 16px;
+  color: var(--fce-accent);
+  flex-shrink: 0;
+}
+
+/* The body of each card — strip the redundant border/bg/radius of the
+   wrapped element so the `.fce-card` chrome owns the visuals. */
+.fce-card > .panelActionRow,
+.fce-card > .ut-item-search-view {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 12px !important;
+  margin: 0 !important;
+}
+
+/* Filter Rotation body: two nested .panelActionRow children stack vertically. */
+.fce-card--quick-filters > .panelActionRow.ab-filters {
+  padding: 10px 12px 12px !important;
+}
+.fce-card--rotation > .panelActionRow.filters {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  padding: 10px 12px !important;
+}
+.fce-card--rotation > .panelActionRow.filters > .panelActionRow {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 8px 10px !important;
+}
+
+/* Search Parameters body: ALL children stacked in a single column.
+   Use `display: block` instead of flex so we don't fight the FC Enhancer's
+   internal layout (some children are absolutely positioned during transient
+   popup states and flex was hiding them). */
+.fce-card--search-params > .ut-item-search-view {
+  padding: 10px !important;
+  display: block !important;
+}
+.fce-card--search-params > .ut-item-search-view > * {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 8px 0 !important;
+  float: none !important;
+}
+.fce-card--search-params > .ut-item-search-view > *:last-child {
+  margin-bottom: 0 !important;
+}
+/* Some inline-list-select rows are inline-block by default — force block */
+.fce-card--search-params > .ut-item-search-view > .inline-list-select {
+  display: block !important;
+}
+/* Evolution Status etc. that the FC Enhancer hides via inline `display:none` */
+.fce-card--search-params > .ut-item-search-view > [style*="display: none"],
+.fce-card--search-params > .ut-item-search-view > [style*="display:none"] {
+  display: none !important;
+}
+
+/* Inside Search Parameters, the nested .search-prices is a visual sub-card */
+.fce-card--search-params .search-prices {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  padding: 10px !important;
+  margin-top: 6px !important;
+}
+
+/* =========================================================================
+   TRADER FILTER PANEL — better visual hierarchy
+   Add section breathing room and subtle dividers between groups.
+   ========================================================================= */
+.ut-pinned-list-container.ut-content-container {
+  padding: 12px !important;
+}
+.ut-pinned-list-container .ut-content,
+.ut-pinned-list-container .ut-pinned-list {
+  gap: 10px !important;
+  padding-bottom: 4px !important;
+}
+
+/* Saved filters block: visually grouped */
+.ut-item-search-view.extended-filters {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+.ut-item-search-view.extended-filters .saved-filters {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Active-filter dropdown (Select Filters multiselect row) — also hosts
+   the injected `.fce-saved-actions` ⋯ menu on its right edge. */
+.panelActionRow.ab-filters {
+  background: var(--fce-bg-2) !important;
+  position: relative !important;
+}
+.panelActionRow.ab-filters .buttonInfoLabel .spinnerLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 10px !important;
+  color: var(--fce-text-faint) !important;
+}
+.panelActionRow.ab-filters .buttonInfoLabel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+/* === Saved filter actions dropdown (replaces 4-button row) ===
+   Lives inside the .fce-quick-filters-header (right side, next to title).
+   Falls back to absolute positioning if the header isn't there yet. */
+.fce-quick-filters-header .fce-saved-actions {
+  position: relative;
+  top: auto;
+  right: auto;
+  display: inline-flex;
+  z-index: 10;
+}
+.fce-saved-actions {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: inline-flex;
+  z-index: 10;
+}
+.fce-saved-actions-btn {
+  background: var(--fce-bg-3) !important;
+  border: 1px solid var(--fce-border) !important;
+  color: var(--fce-text-dim) !important;
+  width: 26px;
+  height: 22px;
+  border-radius: var(--fce-radius-sm);
+  cursor: pointer;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 0;
+  font-family: var(--fce-font);
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+  letter-spacing: 1px;
+}
+.fce-saved-actions-btn:hover {
+  background: var(--fce-bg-4) !important;
+  color: var(--fce-text) !important;
+  border-color: var(--fce-border-2) !important;
+}
+.fce-saved-actions-btn.open {
+  background: var(--fce-text) !important;
+  color: var(--fce-bg-0) !important;
+  border-color: var(--fce-text) !important;
+}
+
+.fce-saved-actions-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: var(--fce-bg-2);
+  border: 1px solid var(--fce-border-2);
+  border-radius: var(--fce-radius);
+  min-width: 180px;
+  padding: 4px;
+  box-shadow: var(--fce-shadow-lg);
+  display: none;
+  z-index: 200;
+  font-family: var(--fce-font);
+}
+.fce-saved-actions-dropdown.open { display: block; }
+
+.fce-saved-actions-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--fce-text);
+  padding: 7px 10px;
+  border-radius: var(--fce-radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+  font-family: inherit;
+}
+.fce-saved-actions-dropdown button:hover {
+  background: var(--fce-bg-3);
+}
+.fce-saved-actions-dropdown button.danger {
+  color: var(--fce-danger);
+}
+.fce-saved-actions-dropdown button.danger:hover {
+  background: rgba(239, 68, 68, 0.10);
+  color: var(--fce-danger);
+}
+.fce-saved-actions-dropdown button.accent {
+  color: var(--fce-accent);
+}
+.fce-saved-actions-dropdown button.accent:hover {
+  background: var(--fce-accent-soft);
+  color: var(--fce-accent-hover);
+}
+.fce-saved-actions-dropdown button.danger svg,
+.fce-saved-actions-dropdown button.accent svg {
+  color: inherit;
+}
+.fce-saved-actions-dropdown svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke-width: 1.75;
+  color: var(--fce-text-dim);
+}
+.fce-saved-actions-dropdown button:hover svg {
+  color: var(--fce-text);
+}
+.fce-saved-actions-dropdown button.danger:hover svg {
+  color: var(--fce-danger);
+}
+.fce-saved-actions-divider {
+  height: 1px;
+  background: var(--fce-border);
+  margin: 3px 4px;
+}
+
+/* The "filters" wrapper that holds the range + randomize toggle is nested
+   and double-styled — flatten it (vertical stack of two sub-rows). */
+.panelActionRow.filters:not(.filter-action-btn) {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+.panelActionRow.filters:not(.filter-action-btn) > .panelActionRow {
+  background: var(--fce-bg-2) !important;
+}
+
+/* === Save / Delete / Upload / Download row ===
+   We HIDE this row entirely — its 4 buttons are now consolidated into the
+   `⋯` dropdown injected next to the "Select Filters" multiselect by JS.
+   The original buttons stay in the DOM (still clickable via proxy) but are
+   invisible. Falls back gracefully: if JS doesn't run, see the Fallback
+   block below to surface the buttons again. */
+.ut-market-search-filters-view .panelActionRow.filter-action-btn,
+.ut-market-search-filters-view [data-fce-hidden="true"] {
+  display: none !important;
+}
+
+/* Fallback styling (used only if .fce-saved-actions menu was NOT injected).
+   Matches the previous compact-row layout so the buttons still look fine. */
+.ut-market-search-filters-view .panelActionRow.filter-action-btn:not([data-fce-hidden]) {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 4px !important;
+  width: 100% !important;
+}
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard {
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  padding: 0 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  text-transform: uppercase;
+  box-shadow: none !important;
+}
+/* Save (1st) — primary action, white */
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(1) {
+  background: var(--fce-text) !important;
+  color: var(--fce-bg-0) !important;
+  border: 1px solid var(--fce-text) !important;
+}
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(1):hover:not(.disabled):not([disabled]) {
+  background: var(--fce-text-dim) !important;
+  border-color: var(--fce-text-dim) !important;
+}
+/* Delete (2nd) — destructive, red */
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(2) {
+  background: transparent !important;
+  color: var(--fce-danger) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(2):hover:not(.disabled):not([disabled]) {
+  background: rgba(239, 68, 68, 0.10) !important;
+  border-color: var(--fce-danger) !important;
+}
+/* Upload (3rd) & Download (4th) — secondary actions, neutral */
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(3),
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(4) {
+  background: var(--fce-bg-2) !important;
+  color: var(--fce-text-dim) !important;
+  border: 1px solid var(--fce-border) !important;
+}
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(3):hover:not(.disabled):not([disabled]),
+.ut-market-search-filters-view .panelActionRow.filter-action-btn .btn-standard:nth-child(4):hover:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-3) !important;
+  color: var(--fce-text) !important;
+  border-color: var(--fce-border-2) !important;
+}
+
+/* Force compact button height everywhere inside the trader filter panel
+   so FC Enhancer's own padding/height rules don't bloat them. */
+.ut-market-search-filters-view .panelActionRow .btn-standard,
+.ut-market-search-filters-view .button-container .btn-standard {
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 10px !important;
+}
+
+/* OVR Range — make it a clear card */
+.ut-item-search-view-ovr-range-container {
+  margin-top: 4px;
+}
+
+/* Prices block: group the two price-headers + criteria as a card */
+.search-prices {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 6px;
+}
+.search-prices .search-price-header {
+  margin: 0 !important;
+}
+.search-prices .ut-market-search-filters-view--criteria-container {
+  margin-bottom: 0 !important;
+}
+
+/* Bot settings panel (Buy/Bid Settings tabs + settings grid) — card */
+/* #futmenuitem fallback: when it has NOT been moved into its own
+   `.fce-card--bot-settings` (extension JS didn't run yet), it sits
+   inside Search Parameters as a nested sub-card. */
+#futmenuitem {
+  background: var(--fce-bg-2);
+  border: 1px solid var(--fce-border);
+  border-radius: var(--fce-radius);
+  padding: 8px;
+  margin-top: 6px !important;
+}
+#futmenuitem .menu-container {
+  background: var(--fce-bg-1);
+  margin-bottom: 8px !important;
+}
+
+/* When #futmenuitem has been promoted to a direct child of a `.fce-card`,
+   strip its own border/background/radius — the wrapper card owns those. */
+.fce-card--bot-settings > #futmenuitem,
+.fce-card > #futmenuitem {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 10px !important;
+  margin: 0 !important;
+}
+.fce-card--bot-settings > #futmenuitem .menu-container {
+  background: var(--fce-bg-2) !important;
+  margin-bottom: 10px !important;
+}
+
+.trader-settings-wrapper {
+  padding: 0 !important;
+}
+
+/* Bottom action buttons — own card, sticky to the bottom of the scroll area */
+.button-container {
+  position: sticky !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  background: var(--fce-bg-1) !important;
+  border: 1px solid var(--fce-border-2) !important;
+  border-radius: var(--fce-radius) !important;
+  padding: 10px !important;
+  z-index: 5;
+  display: grid !important;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr !important;
+  gap: 4px !important;
+}
+.button-container .btn-standard {
+  height: 32px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+  padding: 0 8px !important;
+}
+/* Reset (1st) & Clear History (4th) — outline / subtle */
+.button-container .btn-standard:not(.primary):not(.cancel-btn) {
+  background: transparent !important;
+  color: var(--fce-text-dim) !important;
+  border: 1px solid var(--fce-border-2) !important;
+}
+.button-container .btn-standard:not(.primary):not(.cancel-btn):hover:not(.disabled):not([disabled]) {
+  background: var(--fce-bg-3) !important;
+  color: var(--fce-text) !important;
+  border-color: var(--fce-border-3) !important;
+}
+/* START (2nd / call-to-action) — primary white, taller, more visible */
+.button-container .btn-standard.primary.call-to-action {
+  background: var(--fce-text) !important;
+  color: var(--fce-bg-0) !important;
+  border: 1px solid var(--fce-text) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px !important;
+}
+.button-container .btn-standard.primary.call-to-action:hover:not(.disabled):not([disabled]) {
+  background: var(--fce-text-dim) !important;
+  border-color: var(--fce-text-dim) !important;
+}
+/* Stop (3rd / cancel-btn) — red outline */
+.button-container .btn-standard.cancel-btn {
+  background: transparent !important;
+  color: var(--fce-danger) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+.button-container .btn-standard.cancel-btn:hover:not(.disabled):not([disabled]) {
+  background: rgba(239, 68, 68, 0.10) !important;
+  border-color: var(--fce-danger) !important;
+}
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+@media (max-width: 1200px) {
+  .ut-navigation-container-view--content:has(.process-log) {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .ut-market-search-filters-view.trader.floating {
+    position: static;
+    max-height: none;
+  }
+  .process-log {
+    position: static;
+    max-height: 500px !important;
+    height: auto;
+  }
+  .trader-settings-wrapper { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 760px) {
+  .ut-navigation-bar-view.navbar-style-landscape.currency-purchase {
+    height: auto !important;
+    padding: 6px !important;
+    flex-wrap: wrap !important;
+  }
+  .ut-navigation-bar-view .header-web { flex-wrap: wrap; }
+  .button-container { grid-template-columns: 1fr 1fr !important; }
+  .search-log-results-wrapper { grid-template-columns: 1fr !important; }
+  .ut-navigation-container-view--content {
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+}
+
+/* =========================================================================
+   MISC
+   ========================================================================= */
+.fut_icon { filter: brightness(1.2); }
+.icon_negative { color: var(--fce-text-faint) !important; }
+.playerResultsEmpty { color: var(--fce-text-faint) !important; }
+
+.inline-list {
+  background: var(--fce-bg-2) !important;
+  border: 1px solid var(--fce-border-2) !important;
+  border-radius: var(--fce-radius-sm) !important;
+  margin-top: 2px !important;
+  box-shadow: var(--fce-shadow);
+}
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 10px;
+  font-size: 10px;
+  color: var(--fce-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--fce-border);
+  background: var(--fce-bg-1);
+}
+
+.choices__list--multiple .choices__item .choices__button {
+  filter: brightness(1.4);
+  opacity: 0.7;
+}
+.choices__list--multiple .choices__item .choices__button:hover { opacity: 1; }
+
+/* Compact mode */
+.fce-compact .ut-navigation-container-view--content { padding: 8px !important; gap: 8px !important; }
+.fce-compact .panelActionRow { padding: 5px 8px !important; }
+.fce-compact .log-detail { padding: 5px 8px !important; }
+.fce-compact .search-log-result { padding: 4px 6px !important; }
+.fce-compact .ut-pinned-list-container.ut-content-container { padding: 8px !important; }
+.fce-compact .ut-pinned-list-container .ut-content,
+.fce-compact .ut-pinned-list-container .ut-pinned-list { gap: 5px !important; }
+
+/* Focus visible */
+.ut-navigation-container-view *:focus-visible {
+  outline: 1px solid var(--fce-text) !important;
+  outline-offset: 1px !important;
+}
+
+/* Loader overlay */
+.ut-click-shield {
+  background: rgba(10, 10, 10, 0.7) !important;
+}
+
+/* Scrollbars — completely hidden everywhere inside the trader UI.
+   Scroll still works (mouse wheel / touchpad / keyboard), just no visible bar. */
+.ut-navigation-container-view,
+.ut-navigation-container-view *,
+.ut-market-search-filters-view.trader.floating,
+.process-log,
+.process-log-messages,
+#futmenuitem .menu-container {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.ut-navigation-container-view *::-webkit-scrollbar,
+.ut-market-search-filters-view.trader.floating::-webkit-scrollbar,
+.process-log::-webkit-scrollbar,
+.process-log-messages::-webkit-scrollbar,
+#futmenuitem .menu-container::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+.ut-navigation-bar-view .fn\:flex.fn\:h-full.fn\:items-center.fn\:justify-center {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ut-navigation-bar-view .donation-panel:has(> div:only-child:not(:has(a))) { display: none !important; }
