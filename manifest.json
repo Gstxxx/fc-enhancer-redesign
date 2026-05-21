@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "FC Enhancer — Redesigned",
   "version": "4.0.0",
-  "description": "A complete UI refactor for the FC Enhancer Trader: glass-morphism design, accent themes, smart log filter, and live status indicator.",
+  "description": "Focused UI refactor for the FC Enhancer Trader screen: monochrome dark theme with emerald accent, separated cards, live purchase stats, consolidated saved-filters dropdown. Top navbar themed across all pages.",
   "permissions": ["activeTab", "scripting"],
   "host_permissions": [
     "https://www.ea.com/*",
